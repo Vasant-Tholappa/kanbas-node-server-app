@@ -1,20 +1,22 @@
 import Database from "../Database/index.js";
 import model from "./model.js";
 export function updateModule(moduleId, moduleUpdates) {
-  const { modules } = Database;
-  const module = modules.find((module) => module._id === moduleId);
-  if (!module) {
-    throw new Error(`Module with ID ${moduleId} not found`);
-  }
-  Object.assign(module, moduleUpdates);
-  return module;
+  return model.updateOne({ _id: moduleId }, moduleUpdates);
+  // const { modules } = Database;
+  // const module = modules.find((module) => module._id === moduleId);
+  // if (!module) {
+  //   throw new Error(`Module with ID ${moduleId} not found`);
+  // }
+  // Object.assign(module, moduleUpdates);
+  // return module;
 }
 
   
   
 export function deleteModule(moduleId) {
-    const { modules } = Database;
-    Database.modules = modules.filter((module) => module._id !== moduleId);
+    return model.deleteOne({ _id: moduleId });
+    // const { modules } = Database;
+    // Database.modules = modules.filter((module) => module._id !== moduleId);
    }
    
 // export function createModule(module) {
@@ -33,6 +35,7 @@ export function deleteModule(moduleId) {
      
   
 export function findModulesForCourse(courseId) {
-  const { modules } = Database;
-  return modules.filter((module) => module.course === courseId);
+  return model.find({ course: courseId });
+  // const { modules } = Database;
+  // return modules.filter((module) => module.course === courseId);
 }
